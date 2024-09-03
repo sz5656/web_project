@@ -19,6 +19,7 @@ public class AddFormControl implements Control {
 		request.getRequestDispatcher("WEB-INF/html/addForm.jsp")//
 				.forward(request, response);
 
+		//commitTest
 	}
 
 }
