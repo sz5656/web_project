@@ -1,13 +1,10 @@
 <%@page import="com.yedam.vo.MemberVO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.yedam.service.MemberService" %>
-<%@page import="com.yedam.service.MemberServiceImpl" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../include/header.jsp"></jsp:include>
   <%
-  MemberService svc = new MemberServiceImpl();
-  List<MemberVO> list = svc.getMembers();
+  List<MemberVO> list = (List<MemberVO>) request.getAttribute("memberList");
   %>
   
   <h3>회원목록</h3>

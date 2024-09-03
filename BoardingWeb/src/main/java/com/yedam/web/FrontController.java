@@ -40,13 +40,10 @@ public class FrontController extends HttpServlet {
 		map.put("/intro.do", new IntroControl());
 
 		// 기능등록.
-		map.put("/addMember.do", new AddMemberControl()); // 회원등록페이지
-		map.put("/addForm.do", new AddFormControl()); // 회원등록페이지.
-		map.put("/memberList.do", new MemberListControl());
-		map.put("/getMember.do", new GetMemberControl()); // 회원아이디로 상세조회
-		map.put("/modifyForm.do", new ModifyFormControl()); // 수정화면 이동
-		map.put("/modifyMember.do", new ModifyMemberControl()); // 수정처리
-		map.put("/removeMember.do", new RemoveMemberControl()); // 삭제처리
+		Map<String, Control> memberMenu = MenuMember.getInstance().MenuMap();
+		Map<String, Control> boardMenu = MenuBoard.getInstance().MenuMap();
+		map.putAll(memberMenu); // 멤버관련 메뉴추가
+		map.putAll(boardMenu); // 게시글관련 메뉴추가
 	}
 
 	// HttpServletRequest
