@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.yedam.common.Control;
+import com.yedam.control.BoardControl;
+import com.yedam.control.BoardListControl;
+import com.yedam.control.ModifyBoardControl;
+import com.yedam.control.ModifyBoardFormControl;
+import com.yedam.control.ModifyMemberControl;
 
 // 게시글 관련 메뉴와 컨트롤 등록
 public class MenuBoard {
@@ -16,6 +21,13 @@ public class MenuBoard {
 	public Map<String, Control> MenuMap() {
 		Map<String, Control> menu = new HashMap<>();
 		
+		menu.put("/boardList.do", new BoardListControl());
+		
+		menu.put("/getBoard.do", new BoardControl());
+		
+		menu.put("/modifyFormBoard.do", new ModifyBoardFormControl());
+		
+		menu.put("/modifyBoard.do", new ModifyBoardControl()); // 수정처리
 		return menu;
 	}
 }
