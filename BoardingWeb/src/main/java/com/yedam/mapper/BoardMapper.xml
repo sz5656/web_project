@@ -16,11 +16,23 @@
 	   ORDER BY board_no desc
 	</select>
 	
-	<select id="selectListPaging" resultType="board" parameterType="int">
+	<select id="selectListPaging" resultType="board" parameterType="com.yedam.common.SearchDTO">
 		SELECT c.*
 		FROM   (SELECT rownum rn, b.*
 		        FROM (SELECT * 
 		                FROM tbl_board
+		                WHERE 
+		                <choose>
+		                  <when test='searchCondition == "T"'>
+		                    title like '%'||#{keyword}||'%'
+		                  </when>
+		                  <when test='searchCondition == "W"'>
+                        writer like '%'||#{keyword}||'%'
+                      </when>
+                      <otherwise>
+                        title like '%'||#{keyword}||'%' OR writer like '%'||#{keyword}||'%'
+                      </otherwise>
+		                </choose>
 		                ORDER BY board_no desc) b
 		        <![CDATA[
 		        WHERE rownum <= #{page} * 5) c
@@ -32,11 +44,13 @@
 	   INSERT INTO tbl_board (board_no,
                             title,
                             content,
-                            writer)
+                            writer,
+                            image)
      VALUES                (board_seq.nextval,
                             #{title},
                             #{content},
-                            #{writer})
+                            #{writer},
+                            #{image})
 	</insert>
 	
 	<update id="updateBoard" parameterType="board">
@@ -63,13 +77,26 @@
             content,
             writer,
             view_cnt,
-            creation_date
+            creation_date,
+            image
      FROM   tbl_board
      WHERE  board_no = #{boardNo}
 	</select>
 	
-	<select id="selectCount" resultType="int">
+	<select id="selectCount" resultType="int" parameterType="com.yedam.common.SearchDTO">
 	   SELECT count(1)
 	   FROM   tbl_board
+	   WHERE  
+	          <choose>
+             <when test='searchCondition == "T"'>
+               title like '%'||#{keyword}||'%'
+             </when>
+             <when test='searchCondition == "W"'>
+               writer like '%'||#{keyword}||'%'
+             </when>
+             <otherwise>
+               title like '%'||#{keyword}||'%' OR writer like '%'||#{keyword}||'%'
+             </otherwise>
+           </choose>
 	</select>
 </mapper>

@@ -16,9 +16,16 @@ public class ModifyBoardFormControl implements Control {
 	@Override
 	public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String bno = request.getParameter("bno");
+		String sc = request.getParameter("searchCondition");
+		String kw = request.getParameter("keyword");
+		String page = request.getParameter("page");
+		request.setAttribute("sc", sc);
+		request.setAttribute("kw", kw);
+		request.setAttribute("page", page);
 		BoardService svc = new BoardServiceImpl();
 		BoardVO board = svc.getBoard(Integer.parseInt(bno));
 		request.setAttribute("boardInfo", board); // memberInfo 이름으로 mvo전달
+		request.setAttribute("bno", board.getBoardNo());
 		
 		request.getRequestDispatcher("WEB-INF/board/modifyBoard.jsp").forward(request, response);
 		
