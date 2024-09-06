@@ -24,7 +24,7 @@ public class ModifyFormControl implements Control {
 		
 		request.setAttribute("memberInfo", mvo); // memberInfo 이름으로 mvo전달
 		
-		request.getRequestDispatcher("WEB-INF/html/modifyForm.jsp").forward(request, response);
+		request.getRequestDispatcher("html/modifyForm.tiles").forward(request, response);
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.yedam.control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ public class AddFormControl implements Control {
 		// addForm.do 요청 -> 요청재지정(WEB-INF/html/addForm.jsp)
 
 		request.setAttribute("msg", "Hello, World"); // request 객체에 msg 전달.
-		request.getRequestDispatcher("WEB-INF/html/addForm.jsp")//
+		request.getRequestDispatcher("html/addForm.tiles")//
 				.forward(request, response);
 
 		//commitTest

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
-<jsp:include page="../include/header.jsp"></jsp:include>
 <h3>글 상세 페이지.</h3>
 <table class="table table-dark table-hover">
   <tbody>
@@ -51,4 +50,3 @@
 	  document.forms.actForm.submit();
   }
 </script>
-<jsp:include page="../include/footer.jsp"></jsp:include>

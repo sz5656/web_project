@@ -24,7 +24,7 @@ public class GetMemberControl implements Control {
 		
 		request.setAttribute("memberInfo", mvo); // memberInfo 이름으로 mvo전달
 		
-		request.getRequestDispatcher("WEB-INF/html/memberInfo.jsp").forward(request, response);
+		request.getRequestDispatcher("html/memberInfo.tiles").forward(request, response);
 	}
 
 }

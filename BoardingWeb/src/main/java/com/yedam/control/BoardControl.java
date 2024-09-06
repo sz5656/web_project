@@ -34,7 +34,7 @@ public class BoardControl implements Control {
 		int totalCnt = svc.getTotalCnt(search);
 		PageDTO paging = new PageDTO(Integer.parseInt(page), totalCnt);
 		request.setAttribute("paging", paging);
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/board/board.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("board/board.tiles");
 		rd.forward(request, response);
 	}
 

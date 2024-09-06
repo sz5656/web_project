@@ -22,7 +22,7 @@ public class RemoveMemberControl implements Control {
 			response.sendRedirect("memberList.do");
 		} else {
 			request.setAttribute("message", "삭제처리가 올바르게 되지 않았습니다.");
-			request.getRequestDispatcher("WEB-INF/html/memberList.jsp").forward(request, response);
+			request.getRequestDispatcher("html/memberList.tiles").forward(request, response);
 		}
 		
 		

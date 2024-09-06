@@ -27,7 +27,7 @@ public class ModifyBoardFormControl implements Control {
 		request.setAttribute("boardInfo", board); // memberInfo 이름으로 mvo전달
 		request.setAttribute("bno", board.getBoardNo());
 		
-		request.getRequestDispatcher("WEB-INF/board/modifyBoard.jsp").forward(request, response);
+		request.getRequestDispatcher("board/modifyBoard.tiles").forward(request, response);
 		
 	}
 

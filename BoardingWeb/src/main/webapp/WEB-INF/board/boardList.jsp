@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<jsp:include page="../include/header.jsp"></jsp:include>
 <h3>게시글 목록</h3>
 <div class="center">
   <form action="boardList.do">
@@ -95,4 +94,3 @@
   <p>틀렸습니다</p>
 </c:if>
 
-<jsp:include page="../include/footer.jsp"></jsp:include>

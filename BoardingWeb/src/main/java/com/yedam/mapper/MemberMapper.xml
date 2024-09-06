@@ -42,7 +42,8 @@
            member_name,
            password,
            email,
-           creation_data
+           creation_data,
+           authority
     from   tbl_member
     where  member_id = #{id}
     and    password = #{pw}

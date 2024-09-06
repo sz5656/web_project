@@ -62,6 +62,9 @@
 	       <if test="content != null">
 	          ,content = #{content}
 	       </if>
+	       <if test="image != null">
+	          ,image = #{image}
+	       </if>
 	   </set>
 	   WHERE  board_no = #{boardNo}
 	</update>

@@ -35,7 +35,7 @@ public class RemoveBoardControl implements Control {
 			request.setAttribute("message", "권한이 없어 사용할 수 없습니다");
 			request.setAttribute("board", board);
 			request.setAttribute("page", page);
-			request.getRequestDispatcher("WEB-INF/board/board.jsp").forward(request, response);
+			request.getRequestDispatcher("board/board.tiles").forward(request, response);
 			return;
 		}
 		

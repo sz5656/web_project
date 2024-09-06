@@ -2,7 +2,6 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../include/header.jsp"></jsp:include>
   <%
   List<MemberVO> list = (List<MemberVO>) request.getAttribute("memberList");
   %>
@@ -23,4 +22,3 @@
       <%} %>
     </tbody>
   </table>
-<jsp:include page="../include/footer.jsp"></jsp:include>  
