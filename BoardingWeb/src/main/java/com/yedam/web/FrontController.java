@@ -44,8 +44,10 @@ public class FrontController extends HttpServlet {
 		// 기능등록.
 		Map<String, Control> memberMenu = MenuMember.getInstance().MenuMap();
 		Map<String, Control> boardMenu = MenuBoard.getInstance().MenuMap();
+		Map<String, Control> menuReply = MenuReply.getInstance().MenuMap();
 		map.putAll(memberMenu); // 멤버관련 메뉴추가
 		map.putAll(boardMenu); // 게시글관련 메뉴추가
+		map.putAll(menuReply); // 댓글 관련 메뉴추가
 	}
 
 	// HttpServletRequest
