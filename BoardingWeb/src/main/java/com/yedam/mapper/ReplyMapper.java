@@ -13,4 +13,5 @@ public interface ReplyMapper {
 	int deleteReplys(String[] arr);
 	// 댓글 등록
 	int insertReply(ReplyVO reply);
+	int selectKey();
 }

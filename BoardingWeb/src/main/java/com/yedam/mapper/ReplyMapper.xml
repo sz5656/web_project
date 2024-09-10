@@ -34,7 +34,11 @@
                           ,replyer
 								          ,reply
 								          ,board_no)
-    values (reply_seq.nextval, #{replyer}, #{reply}, #{boardNo})
+    values (#{replyNo}, #{replyer}, #{reply}, #{boardNo})
   </insert>
 	
+	<select id="selectKey" resultType="int">
+    select reply_seq.nextval
+    from dual
+  </select>
 </mapper>

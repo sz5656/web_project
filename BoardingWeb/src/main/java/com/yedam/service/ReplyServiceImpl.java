@@ -25,12 +25,13 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public boolean removeReplys(String[] arr) {
-		return mapper.deleteReplys(arr)==1;
+		return mapper.deleteReplys(arr) > 0;
 	}
 
 	@Override
 	public boolean addReply(ReplyVO reply) {
-		
+		int key = mapper.selectKey();
+		reply.setReplyNo(key);
 		return mapper.insertReply(reply)==1;
 	}
 

@@ -15,26 +15,7 @@ xhttp.onload = function () {
   });
 }
 
-//댓글작성
-let replyBtn = document.querySelector('#addReply');
-replyBtn.addEventListener('click',function(e) {
-  // let reply = document.querySelector('#reply');
-  let reply = document.getElementById('reply').value;
-  const addHttp = new XMLHttpRequest();
-  let param = "addReply.do?replyer="+replyer+"&bno="+bno+"&reply="+reply;
-  addHttp.open('get',param);
-  addHttp.send();
-  addHttp.onload = function() {
-    let result = JSON.parse(addHttp.responseText);
-      console.log(result);
-    if(result.retCode == 'OK') {
-    } else if(result.retCode == 'NG') {
-      alert('알 수 없는 예외 발생');
-    } else {
-      alert('잘못된 반환 코드');
-    }
-  }
-})
+
 //댓글정보 -> tr->td*4 생성반환
 const fields = ['replyNo','reply','replyer','replyDate'];
 function makeRow(reply={}) {
@@ -62,6 +43,29 @@ function makeRow(reply={}) {
       
   return tr;
 }
+
+//댓글작성
+let replyBtn = document.querySelector('#addReply');
+replyBtn.addEventListener('click',function() {
+  // let reply = document.querySelector('#reply');
+  let reply = document.getElementById('reply').value;
+  const addHttp = new XMLHttpRequest();
+  let param = "addReply.do?replyer="+replyer+"&bno="+bno+"&reply="+reply;
+  addHttp.open('get',param);
+  addHttp.send();
+  console.log(addHttp.responseText);
+  addHttp.onload = function() {
+    let result = JSON.parse(addHttp.responseText);
+    if(result.retCode == 'OK') {
+      let tr = makeRow(result.retVal);
+      document.querySelector('.list').appendChild(tr);
+    } else if(result.retCode == 'NG') {
+      alert('알 수 없는 예외 발생');
+    } else {
+      alert('잘못된 반환 코드');
+    }
+  }
+})
 document.querySelector('thead input[type="checkbox"]').addEventListener('change',function(e) {
   document.querySelectorAll('.list input[type="checkbox"]').forEach(item => {
   item.checked = this.checked;
