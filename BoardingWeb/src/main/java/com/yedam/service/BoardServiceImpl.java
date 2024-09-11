@@ -14,7 +14,8 @@ public class BoardServiceImpl implements BoardService{
 	BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
 	@Override
 	public List<BoardVO> boardList(SearchDTO search) {
-		return mapper.selectListPaging(search);
+//		return mapper.selectListPaging(search);
+		return mapper.selectList();
 	}
 
 	@Override

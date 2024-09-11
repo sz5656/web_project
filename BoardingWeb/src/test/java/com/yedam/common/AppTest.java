@@ -10,10 +10,13 @@ public class AppTest {
 		SqlSession sqlSession = DataSource.getInstance().openSession(true);
 		ReplyMapper mapper = sqlSession.getMapper(ReplyMapper.class);
 		
-		String[] arg = {"12", "13", "14","15"};
+		SearchDTO search = new SearchDTO();
+		search.setBoardNo(16374);
+		search.setPage(1);
 		
-		mapper.deleteReplys(arg);
+		mapper.selectListPaging(search).forEach(reply -> System.out.println(reply.toString()));;
 		
-	}
+		
+		}
 
 }

@@ -58,8 +58,9 @@ function makeRow(reply={}) {
 //서비스 메소드를 통해서 ajax 기능을 실행
 //1.목록 2.삭제 3.추가 4......
 const svc = {
-  replyList: function (bno = 1, successCallback, errorCallback) {
-    fetch('replyList.do?bno='+bno)
+  replyList: function (param = {bno: 1,page: 1}, successCallback, errorCallback) {
+    console.log(param.page);
+    fetch('replyList.do?bno='+param.bno+'&page='+param.page)
     .then(resolve => resolve.json())
     .then(successCallback)
     .catch(errorCallback)
@@ -76,6 +77,13 @@ const svc = {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: 'bno='+param.bno+'&reply='+param.reply+'&replyer='+param.replyer
     })
+    .then(resolve => resolve.json())
+    .then(successCallback)
+    .catch(errorCallback)
+  },
+  // 댓글건수를 갖와서 페이징정보를 생성 replyPagingCount
+  replyPagingCount(bno = 1, successCallback, errorCallback) {
+    fetch('replyCount.do?bno='+bno)
     .then(resolve => resolve.json())
     .then(successCallback)
     .catch(errorCallback)

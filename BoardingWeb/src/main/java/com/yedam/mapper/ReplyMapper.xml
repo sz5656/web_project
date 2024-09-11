@@ -16,6 +16,18 @@
     order by reply_no
   </select>
   
+  <select id="selectListPaging" parameterType="com.yedam.common.SearchDTO">
+    SELECT b.*
+		FROM    (SELECT /*+ INDEX_DESC (r PK_REPLY)*/ rownum rn, r.*
+		         FROM tbl_reply r
+		         WHERE r.board_no = #{boardNo}) b
+		<![CDATA[
+		WHERE b.rn <= #{page} * 5
+		]]>
+		AND   b.rn> (#{page} - 1)*5
+  
+  </select>
+  
   <delete id="deleteReply" parameterType="int">
     delete from tbl_reply
     where reply_no = #{rno}
@@ -40,5 +52,11 @@
 	<select id="selectKey" resultType="int">
     select reply_seq.nextval
     from dual
+  </select>
+  
+  <select id="selectReplyCount" parameterType="int">
+    select count(1)
+    from tbl_reply
+    where board_no = #{bno}
   </select>
 </mapper>

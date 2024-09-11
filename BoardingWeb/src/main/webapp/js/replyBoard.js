@@ -3,21 +3,24 @@
  * replayService에 정의된 메소드를 통해서 기능 실행
  */
 
-/**
- * 이벤트(댓글등록)
- */
-document.querySelector('#addReply').addEventListener('click',addReplyFunc);
+// DOM 요소를 모두 읽어들인 다음 코드실행
+let pagination;
+document.addEventListener("DOMContentLoaded",function(e) {
+  /**
+   * 이벤트(댓글등록)
+   */
+  //댓글등록
+  document.querySelector('#addReply').addEventListener('click',addReplyFunc);
+  //페이지링크 클릭
+  document.querySelectorAll('ul.pagination a').forEach(aTag => {
+    aTag.addEventListener('click',showReplyListFunc);
+  })
+  pagination = document.querySelector('ul.pagination');
+  //댓글출력
+  refreshList();
+}) // end of domcontentloaded
 
-//댓글출력
-svc.replyList(bno,function(result) {
-   console.log(result);
-   result.forEach(reply => {
-    document.querySelector('div.content ul').appendChild(makeLi(reply));
-   });
-  }, function(err) {
-    alert(err);
-  }//실패했을 때 실행
-);
+let page = 1; //페이지 변경될 때 마다 
 makeLi();
 /**-------------------=
  * 댓글정보 -> li 생성하는 함수
@@ -59,7 +62,13 @@ function deleteLiFunc(e) {
         function(result) {
           if(result.retCode=='OK') {
             // alert('삭제성공');
-            e.target.parentElement.parentElement.remove();
+            refreshList();
+            console.log('del result:'+result);
+            if(result==null) {
+              console.log('del result:'+result.length());
+              page-=1;
+              refreshList();
+            }
           } else {
             alert('삭제처리 중 예외발생');
           }
@@ -106,7 +115,9 @@ function addReplyFunc(e) {
         text: "댓글 등록이 완료되었습니다",
         icon: "success"
       });
-      document.querySelector('div.content ul').appendChild(makeLi(result.retVal));
+      //document.querySelector('div.content ul').appendChild(makeLi(result.retVal));
+      page=1;
+      refreshList();
     } else {
       alert('추가중 예외발생');
     }
@@ -115,4 +126,116 @@ function addReplyFunc(e) {
   function(err) {
     console.log(err);
   });
+}
+//목록 새로고침
+function refreshList() {
+  document.querySelectorAll('div.content li').forEach((li,idx) => {
+    if(idx > 2) {
+      li.remove();
+    }
+  })
+  svc.replyList({bno,page},function(result) {
+     console.log(result);
+     result.forEach(reply => {
+      document.querySelector('div.content ul').appendChild(makeLi(reply));
+     });
+     showPagingListFunc();
+    }, function(err) {
+      alert(err);
+    }//실패했을 때 실행
+  );
+}
+/**
+ * 링크 클릭시 댓글목록 새로출력
+ * 함수: showReplyListFunc
+ */
+function showReplyListFunc(e) {
+  //기존에 있는 출력 리스트 지워주고
+  page = e.target.dataset.page; // 페이지번호
+  refreshList();
+}
+
+/**
+ * 댓글갯수를 활용해서 페이지 리스트 생성
+ * 함수: showPagingListFunc
+ */
+
+
+function showPagingListFunc() {
+  svc.replyPagingCount(bno, //글번호
+    makePagingList, // 성공했을때 실행할 콜백함수
+    function(err) {
+      alert(err);
+    }  
+  )
+}
+// 정상처리 실행할 콜백함수
+function makePagingList(result) {
+  pagination.innerHTML = ''; // 기존 페이지 리스트 지우기
+  console.log(result);
+  let totalCnt = result.totalCount;
+  console.log('makePagingList totalcnt');
+  console.log(totalCnt);
+  //페이지 목록 만들기
+  let startPage, endPage, realEnd; // 첫페이지 ~ 마지막페이지
+  let prev, next; // 이전페이지, 이후페이지
+
+  endPage = Math.ceil(page / 5) * 5;
+  startPage = endPage - 4;
+  realEnd = Math.ceil(totalCnt/5);
+
+  endPage = endPage > realEnd ? realEnd : endPage;
+  prev = startPage > 1;
+  next = endPage < realEnd;
+  //이전페이지
+  let li = document.createElement('li');
+  li.className = 'page-item';
+  let a = document.createElement('a');
+  a.className = 'page-link';
+  a.innerHTML = 'Previous';
+  li.appendChild(a);
+  if(prev) {
+    a.setAttribute('href','#');
+    a.setAttribute('data-page',startPage-1);
+  } else {
+    li.classList.add('disabled');
+  }
+  pagination.appendChild(li);
+
+  //list 생성 페이지 범위에 들어갈...
+  for (let p = startPage; p <= endPage; p++) {
+    let li = document.createElement('li');
+    li.className = 'page-item';
+    let a = document.createElement('a');
+    a.className = 'page-link';
+    a.setAttribute('href','#');
+    a.setAttribute('data-page',p);
+    a.innerHTML = p;
+    li.appendChild(a);
+    if(p==page) {
+      li.classList.add('active');
+      li.setAttribute('area-current','page');
+    }
+
+    pagination.appendChild(li);
+  }
+  //이후페이지
+  li = document.createElement('li');
+  li.className = 'page-item';
+  a = document.createElement('a');
+  a.className = 'page-link';
+  a.innerHTML = 'Next';
+  li.appendChild(a);
+  if(next) {
+    a.setAttribute('href','#');
+    a.setAttribute('data-page',endPage+1);
+  } else {
+    li.classList.add('disabled');
+  }
+  pagination.appendChild(li);
+  
+  //이벤트 등록
+  document.querySelectorAll('ul.pagination a').forEach(aTag => {
+  aTag.addEventListener('click',showReplyListFunc);
+  })
 }
