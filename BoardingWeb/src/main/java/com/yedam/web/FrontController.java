@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.common.Control;
 import com.yedam.control.AddFormControl;
 import com.yedam.control.AddMemberControl;
+import com.yedam.control.EventControl;
 import com.yedam.control.GetMemberControl;
 import com.yedam.control.IntroControl;
 import com.yedam.control.JavaScriptControl;
@@ -41,6 +42,11 @@ public class FrontController extends HttpServlet {
 		map.put("/intro.do", new IntroControl());
 		map.put("/javascript.do", new JavaScriptControl());
 
+		// fullcalendar
+		map.put("/eventList.do", new EventControl());
+		map.put("/addEvent.do", new EventControl());
+		map.put("/removeEvent.do", new EventControl());
+		
 		// 기능등록.
 		Map<String, Control> memberMenu = MenuMember.getInstance().MenuMap();
 		Map<String, Control> boardMenu = MenuBoard.getInstance().MenuMap();

@@ -70,6 +70,7 @@
   <div class="header">
     <input type="text" id="reply" class="col-sm-9">
     <button id="addReply" class="btn btn-primary">댓글등록</button>
+    <button id="delReply" class="btn btn-danger">댓글삭제</button>
   </div>
   <!-- 댓글목록 -->
   <table id="example" class="display" style="width:100%">
@@ -100,15 +101,6 @@
 	  document.forms.actForm.action = uri;
 	  document.forms.actForm.submit();
   }
-  new DataTable('#example', {
-    ajax: 'replyTable.do?bno='+bno,
-    columns: [
-        { data: 'replyNo' },
-        { data: 'reply' },
-        { data: 'replyer' },
-        { data: 'replyDate' }
-    ]
-  });
 </script>
 
 <script src="js/boardTable.js"></script>
