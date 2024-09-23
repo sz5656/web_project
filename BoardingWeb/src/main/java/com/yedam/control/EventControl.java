@@ -14,9 +14,10 @@ import com.yedam.common.SearchDTO;
 import com.yedam.service.ReplyService;
 import com.yedam.service.ReplyServiceImpl;
 /**
- *"/eventList.do"   ->
- *"/addEvent.do"    ->
- *"/removeEvent.do" ->
+ *"/eventList.do"   -> call eventList method
+ *"/addEvent.do"    ->      addEvent
+ *"/removeEvent.do" ->      removeEvent
+ *"/chart.do"       ->      chart
  */
 public class EventControl implements Control {
 	ReplyService svc = new ReplyServiceImpl();
@@ -87,5 +88,18 @@ public class EventControl implements Control {
 			response.getWriter().print("{\"retCode\":\"NG\"}");
 		}
 	}
-
+	//chart의 json 데이터
+	public void chart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		List<Map<String, Object>> list = svc.countPerWriter();
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(list);
+		
+		response.getWriter().println(json);
+	}
+	//chart의 페이지 호출
+	public void showChart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.getRequestDispatcher("admin/chart.tiles").forward(request, response);
+	}
 }

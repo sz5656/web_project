@@ -46,6 +46,8 @@ public class FrontController extends HttpServlet {
 		map.put("/eventList.do", new EventControl());
 		map.put("/addEvent.do", new EventControl());
 		map.put("/removeEvent.do", new EventControl());
+		map.put("/chart.do", new EventControl());
+		map.put("/showChart.do", new EventControl());
 		
 		// 기능등록.
 		Map<String, Control> memberMenu = MenuMember.getInstance().MenuMap();

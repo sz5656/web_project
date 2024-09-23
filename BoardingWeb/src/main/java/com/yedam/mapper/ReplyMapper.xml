@@ -78,4 +78,14 @@
     and   start_date = #{start}
     and   end_date = #{end}
   </delete>
+  
+  <select id="countPerWriter" resultType="map">
+  SELECT m.member_name AS "memberName"
+        ,writer        AS "memberId"
+        ,COUNT(1)      AS "count"
+	FROM tbl_board b
+	JOIN tbl_member m
+	on b.writer = m.member_id
+	GROUP BY writer, m.member_name
+  </select>
 </mapper>

@@ -59,4 +59,14 @@ public class ReplyServiceImpl implements ReplyService {
 		return mapper.deleteEvent(event)==1;
 	}
 
+	@Override
+	public List<Map<String, Object>> todoList() {
+		return mapper.todoList();
+	}
+
+	@Override
+	public List<Map<String, Object>> countPerWriter() {
+		return mapper.countPerWriter();
+	}
+
 }

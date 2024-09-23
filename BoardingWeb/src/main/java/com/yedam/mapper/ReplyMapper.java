@@ -26,4 +26,9 @@ public interface ReplyMapper {
 	int insertEvent(SearchDTO event);
 	int deleteEvent(SearchDTO event);
 	
+	// 오늘의 할일
+	List<Map<String,Object>> todoList();
+	
+	List<Map<String,Object>> countPerWriter();
+	
 }
